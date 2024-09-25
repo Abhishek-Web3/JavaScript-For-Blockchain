@@ -1,0 +1,116 @@
+<!-- Synchrounous code with blocking Operations -->
+
+<script>
+function runloop() {
+  for (let i=0; i<1e10; i++) {}
+      console.log("Loop Finishsed");
+
+}
+
+console.log('First Statement');
+console.log('second Statement');
+console.log('third Statement');
+runloop();
+console.log('fourth Statement');
+
+
+
+
+
+// synchronous code with blocking operations
+// function runloop() {
+//   for (let i=0; i<1e10; i++) {}
+//       console.log("Loop Finishsed");
+
+const { stat } = require("fs");
+
+// }
+
+// console.log('First Statement');
+// console.log('second Statement');
+// console.log('third Statement');
+// runloop();
+// console.log('fourth Statement');
+
+// console.log('async first statement');
+// setTimeout(()=>{
+//   console.log('async second statement')
+// },200)
+
+// console.log("async third statement");
+
+/*const PromiseObj = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    // const status = true;
+    const status = false;
+    if (status) {
+      resolve("Status is true");
+    } else {
+      reject("Status is false");
+    }
+  }, 500);
+});
+console.log("start");
+// console.log(PromiseObj);
+PromiseObj.then((result) => {
+  console.log(result);
+}).catch((error)=>{
+  console.log(error);
+});
+console.log("End"); */
+
+const PromiseObj = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    // const status = true;
+    const status = false;
+    if (status) {
+      resolve("Status is true");
+    } else {
+      reject("Status is false");
+    }
+  }, 500);
+});
+
+console.log("start");
+
+async function getStatus() {
+  try {
+    const result = await PromiseObj;
+    console.log(result);
+  } catch {
+    console.log("Error");
+  }
+}
+
+getStatus();
+console.log("end");
+
+/*fetch('https://api.coincap.io/v2/assets')
+.then(response => {
+  if (!response.ok) {
+    throw new Error('Network response was not ok');
+  }
+  return response.json(); // Parse the JSON from the response
+})
+.then(data => {
+  console.log(data); // Handle the data you get from the API
+})
+.catch(error => {
+  console.error('There was a problem with the fetch operation:', error);
+});*/
+
+const fetchdata = async() => {
+  try {
+    const resposnse = await fetch("https://api.coincap.io/v2/assets");
+    if (!resposnse.ok) {
+      throw new Error("Network response was not ok");
+    }
+    const data = await resposnse.json();
+    console.log(data);
+  } catch (error) {
+    console.error("There was a problem with the fetch operation:", error);
+  }
+};
+fetchdata(); 
+
+</script>
